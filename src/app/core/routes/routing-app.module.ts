@@ -8,10 +8,16 @@ import { NavbarComponent } from '../../layout/navbar/navbar.component';
 import { FormMahasiswaComponent } from '../../layout/content/form-mahasiswa/form-mahasiswa.component';
 import { ListMahasiswaComponent } from '../../layout/content/list-mahasiswa/list-mahasiswa.component';
 import { PageNotFoundComponent } from '../../layout/page-not-found/page-not-found.component';
+import { AboutComponent } from '../../layout/about/about.component';
+import { BannerSliderComponent } from '../../layout/banner-slider/banner-slider.component';
 
 const routes : Routes = [
   {path: 'list-mahasiswa', component : ListMahasiswaComponent},
-  {path: 'input-mahasiswa', component : FormMahasiswaComponent}
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component : IndexComponent},
+  {path: 'about', component : AboutComponent},
+  {path: 'input-mahasiswa', component : FormMahasiswaComponent},
+  {path: '**', component : PageNotFoundComponent}
 ]
 
 @NgModule({
@@ -29,5 +35,7 @@ export const RoutingComponents = [
   NavbarComponent,
   FormMahasiswaComponent,
   ListMahasiswaComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  AboutComponent,
+  BannerSliderComponent
 ]

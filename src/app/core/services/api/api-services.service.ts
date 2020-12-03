@@ -1,10 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient , HttpHeaders  } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServicesService {
+  private _urlApi :string = 'http://127.0.0.1:8000/mahasiswa';
+  private _urlApiAnother : string = '';
 
-  constructor() { }
+  constructor(private _http:HttpClient) { }
+  
+  readData(isOtherUrl:boolean){
+    let myUrl = null;
+    if(isOtherUrl){
+      myUrl = this._urlApiAnother;
+    } else {
+      myUrl = this._urlApi;
+    }
+    return this._http.get(myUrl);
+  }
+  postData(data:any){
+  	let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+	  };
+    return this._http.post(this._urlApi, this.serializeObj(data),options);
+  }
+  updateData():void{}
+  deleteData(id:number){
+    return this._http.delete(this._urlApi + '/' + id);
+  }
+  getDataBy(id:any){
+    return this._http.get(this._urlApi + '/' + id);
+  }
+
+  serializeObj(obj:any) {
+    let result = [];
+    for (let property in obj)
+        result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+    return result.join("&");
+  }
 }

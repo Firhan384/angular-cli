@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { ApiServicesService } from '../../../core/services/api/api-services.service';
 
 @Component({
   selector: 'app-form-mahasiswa',
@@ -7,19 +7,26 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./form-mahasiswa.component.css']
 })
 export class FormMahasiswaComponent implements OnInit {
-  public dataMahasiswa = {
-    nama_siswa :'',
-    nim_siswa : '',
-    jurusan :''
+  public enteredValue =  {
+    nama_mahasiswa: '',
+    nim: '',
+    jurusan: ''
   }
 
-  constructor() { }
+  constructor(private _api : ApiServicesService) { }
 
   ngOnInit(): void {
   }
   onSubmit(e):void {
     e.preventDefault();
-    console.log(this.dataMahasiswa)
+  }
+  onClick():void {
+    // console.log(this.enteredValue);
+    this._api.postData(this.enteredValue).subscribe(result=>{
+  		console.log(result);
+  	},error=>{
+  		console.log(error);
+  	})
   }
 
 }
