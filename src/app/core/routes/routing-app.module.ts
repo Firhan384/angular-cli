@@ -10,11 +10,12 @@ import { ListMahasiswaComponent } from '../../layout/content/list-mahasiswa/list
 import { PageNotFoundComponent } from '../../layout/page-not-found/page-not-found.component';
 import { AboutComponent } from '../../layout/about/about.component';
 import { BannerSliderComponent } from '../../layout/banner-slider/banner-slider.component';
+import { ListPostsComponent } from '../../layout/content/list-posts/list-posts.component';
 
 const routes : Routes = [
   {path: 'list-mahasiswa', component : ListMahasiswaComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component : IndexComponent},
+  {path: 'home', component : ListPostsComponent},
   {path: 'about', component : AboutComponent},
   {path: 'input-mahasiswa', component : FormMahasiswaComponent},
   {path: '**', component : PageNotFoundComponent}
@@ -37,5 +38,6 @@ export const RoutingComponents = [
   ListMahasiswaComponent,
   PageNotFoundComponent,
   AboutComponent,
-  BannerSliderComponent
+  BannerSliderComponent,
+  ListPostsComponent
 ]

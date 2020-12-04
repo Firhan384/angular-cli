@@ -19,7 +19,7 @@
             <td>{{mahasiswa.jurusan}}</td>
             <td>
               <button class="btn btn-info mr-2" (click)="updateMahasiswa(mahasiswa.id)">Edit</button>
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" (click)="deleteMahasiswaById(mahasiswa.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -40,19 +40,20 @@
       </div>
       <div class="modal-body">
         <form (submit)="onSumbit($event)">
+          <input type="hidden" name="id" [(ngModel)]="idMahasiswa">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Nama Siswa</label>
-              <input type="text" class="form-control" name="nama_siswa">
+              <input type="text" class="form-control" name="nama_siswa" [(ngModel)]="setDataSiswa.nama_mahasiswa">
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Nim</label>
-              <input type="text" class="form-control" name="nim_siswa" >
+              <input type="text" class="form-control" name="nim_siswa" [(ngModel)]="setDataSiswa.nim">
             </div>
           </div>
           <div class="form-group">
             <label for="inputAddress">Jurusan</label>
-            <input type="text" class="form-control" name="jurusan" placeholder="1234 Main St">
+            <input type="text" class="form-control" name="jurusan" placeholder="1234 Main St" [(ngModel)]="setDataSiswa.jurusan">
           </div>
         </form>
       </div>

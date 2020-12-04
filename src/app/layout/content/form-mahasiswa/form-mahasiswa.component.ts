@@ -7,6 +7,7 @@ import { ApiServicesService } from '../../../core/services/api/api-services.serv
   styleUrls: ['./form-mahasiswa.component.css']
 })
 export class FormMahasiswaComponent implements OnInit {
+
   public enteredValue =  {
     nama_mahasiswa: '',
     nim: '',
@@ -21,10 +22,12 @@ export class FormMahasiswaComponent implements OnInit {
     e.preventDefault();
   }
   onClick():void {
-    // console.log(this.enteredValue);
-    this._api.postData(this.enteredValue).subscribe(result=>{
-  		console.log(result);
-  	},error=>{
+    this._api.postData(this.enteredValue).subscribe(()=>{
+      this.enteredValue.nama_mahasiswa = '';
+      this.enteredValue.nim = '';
+      this.enteredValue.jurusan = '';
+      alert('data mahasiswa berhasil ditambah');
+    },error=>{
   		console.log(error);
   	})
   }

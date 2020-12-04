@@ -9,11 +9,14 @@ import { ApiServicesService } from '../../../core/services/api/api-services.serv
 })
 export class ListMahasiswaComponent implements OnInit {
   titleModal:string = '';
+  isStatusModal:string = ''
+  public idMahasiswa:number;
   setDataSiswa = {
     nama_mahasiswa : '',
     nim: '',
     jurusan : ''
   };
+
   constructor(private _api:ApiServicesService) { }
   ngOnInit(): void {
     this.showListMahasiswa();
@@ -29,33 +32,45 @@ export class ListMahasiswaComponent implements OnInit {
     },error=>console.log(error));
   }
 
-  getListMahasiswaById(id:number){
-    return this._api.getDataBy(id).subscribe(result => {
-      this.getDataMahasiswa = result
-    }, error => console.log(error));
-  }
 
   updateMahasiswa(id:number){
-    let tester = this.getListMahasiswaById(id);
-    this.openModal("exampleModal");
-    console.log(tester);
+    this._api.getDataBy(id).subscribe(result => {
+      let finalResult = Object(result);
+        this.idMahasiswa = finalResult.data.id;
+        this.setDataSiswa.nama_mahasiswa = finalResult.data.nama_mahasiswa;
+        this.setDataSiswa.nim = finalResult.data.nim;
+        this.setDataSiswa.jurusan = finalResult.data.jurusan;
+    })
+    setTimeout(()=> {
+      this.openModal("exampleModal");
+    },300);
+    
   }
 
   deleteMahasiswaById(id:number){
-    this._api.deleteData(id).subscribe(result => {
-      return result
-    }, error => console.log(error));
+    if(confirm("yakin ingin delete??")){
+      this._api.deleteData(id).subscribe(() => 
+        {
+          alert("Berhasil hapus data");
+          this.showListMahasiswa();
+        }
+        , error => console.log(error));
+    }
   }
 
   onSumbit(e){
     e.preventDefault();
-    console.log(e);
   }
   onClickCloseModal(){
     this.closeModal("exampleModal");
   }
   onClick(){
-
+    this._api.updateData(this.idMahasiswa,this.setDataSiswa).subscribe((result)=>{
+      this.showListMahasiswa();
+      alert('data berhasil diupdate');
+      this.closeModal("exampleModal");
+      console.log(result);
+    },error => console.log(error));
   }
   openModal(idName:any){
     this.titleModal = 'Update Mahasiswa';
